@@ -4,14 +4,16 @@ using HotelMenagmentApi.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace HotelMenagmentApi.Migrations
 {
     [DbContext(typeof(HotelMenagmentContext))]
-    partial class HotelMenagmentContextModelSnapshot : ModelSnapshot
+    [Migration("20200706211513_Intidremoved")]
+    partial class Intidremoved
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -114,6 +116,9 @@ namespace HotelMenagmentApi.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Guest")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("is_ocuppied")
                         .HasColumnType("bit");

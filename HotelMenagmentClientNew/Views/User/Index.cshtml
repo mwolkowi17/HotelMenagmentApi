@@ -1,6 +1,30 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model HotelViewModel;
 @{
+    ViewData["Title"] = "User List";
 }
-<p>Users</p>
+
+<h2>Users</h2>
+
+<div class="container">
+    <table class="table table-hover">
+        <thead>
+            <tr>
+
+                <td>GuestId</td>
+                <td>Name</td>
+                <td>Suraname</td>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.GuestList)
+            {
+                <tr>
+
+                    <td>@item.GuestID</td>
+                    <td>@item.name</td>
+                    <td>@item.surname</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

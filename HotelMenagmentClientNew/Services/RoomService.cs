@@ -8,25 +8,26 @@ using System.Threading.Tasks;
 
 namespace HotelMenagmentClientNew.Services
 {
-    public class UserService
+    public class RoomService
     {
         public static string url = "https://localhost:44343";
         public static HttpClient httpClient = new HttpClient();
 
         public IMapper _mapper;
 
-        public UserService(IMapper mapper)
+        public RoomService(IMapper mapper)
         {
             _mapper = mapper;
         }
 
-        public async Task<ICollection<GuestDTO>> GetAll()
+        public async Task<ICollection<RoomDTO>> GetAllRooms()
         {
             HotelMenagmentHttpClient HotelClient = new HotelMenagmentHttpClient(url, httpClient);
-            ICollection<Guest> guests = await HotelClient.GuestsAllAsync();
-            return _mapper.Map<ICollection<GuestDTO>>(guests);
-          
+            ICollection<Room> rooms = await HotelClient.RoomsAllAsync();
+            return _mapper.Map<ICollection<RoomDTO>>(rooms);
+
         }
+
 
     }
 }

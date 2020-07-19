@@ -9,7 +9,7 @@ namespace HotelMenagmentClientNew.Models
     {
         public ICollection<RoomDTO> RoomList { get; set; }
         public ICollection<GuestDTO> GuestList { get; set; }
-        public List<ReservationDTO> ReservationList { get; set; }
+        public ICollection<ReservationDTO> ReservationList { get; set; }
         public List<ReservationHistoryDTO> ReservationHistoryList { get; set; }
         public List<ReservationDTO> ReservedForToday { get; set; }
     }

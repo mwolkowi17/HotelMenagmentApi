@@ -28,6 +28,7 @@ namespace HotelMenagmentClientNew
             services.AddControllersWithViews();
             services.AddTransient<UserService>();
             services.AddTransient <RoomService>();
+            services.AddTransient<ReservationService>();
             services.AddAutoMapper(typeof(Mappingprofile));
         }
 

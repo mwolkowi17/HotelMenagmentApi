@@ -14,12 +14,12 @@ namespace HotelMenagmentClientNew.Models
         [Display(Name = "Checkin Date")]
         [DataType(DataType.Date)]
 
-        public DateTime check_in { get; set; }
+        public DateTimeOffset check_in { get; set; }
 
         [Display(Name = "Checkout Date")]
         [DataType(DataType.Date)]
 
-        public DateTime check_out { get; set; }
+        public DateTimeOffset check_out { get; set; }
         public ResStatus status { get; set; }
         public string made_by { get; set; }
         //public int GuestID { get; set; }

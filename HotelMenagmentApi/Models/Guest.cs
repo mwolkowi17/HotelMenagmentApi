@@ -10,6 +10,6 @@ namespace HotelMenagmentApi.Models
         public int GuestID { get; set; }
         public string name { get; set; }
         public string surname { get; set; }
-        //public DateTime member_since { get; set; }
+        public DateTimeOffset member_since { get; set; }
     }
 }

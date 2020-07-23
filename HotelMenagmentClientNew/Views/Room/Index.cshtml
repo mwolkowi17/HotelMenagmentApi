@@ -22,10 +22,17 @@
                 <tr>
 
                     <td>@item.RoomID</td>
-                    <td>@item.name</td>
-                    <td>@item.is_ocuppied</td>
-                    <td>@item.smoke</td>
-                    <td>@item.nubmerbeds</td>
+                    <td>@item.Name</td>
+                    <td>@item.Is_ocuppied</td>
+                    <td>@item.Smoke</td>
+                    @if(item.Nubmerbeds.ToString()== "2") 
+                    { 
+                    <td>double</td>
+                    }
+                    @if (item.Nubmerbeds.ToString() == "_1")
+                    {
+                    <td>single</td>                        
+                    }
                 </tr>
             }
         </tbody>

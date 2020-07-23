@@ -18,14 +18,14 @@ namespace HotelMenagmentApi.Models
         [Display(Name = "Checkin Date")]
         [DataType(DataType.Date)]
 
-        public DateTimeOffset check_in { get; set; }
+        public DateTimeOffset Check_in { get; set; }
 
         [Display(Name = "Checkout Date")]
         [DataType(DataType.Date)]
 
-        public DateTimeOffset check_out { get; set; }
-        public ResStatus status { get; set; }
-        public string made_by { get; set; }
+        public DateTimeOffset Check_out { get; set; }
+        public ResStatus Status { get; set; }
+        public string Made_by { get; set; }
         //public int GuestID { get; set; }
         public Guest Guest { get; set; }
 

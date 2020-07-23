@@ -8,8 +8,8 @@ namespace HotelMenagmentApi.Models
     public class Guest
     {
         public int GuestID { get; set; }
-        public string name { get; set; }
-        public string surname { get; set; }
-        public DateTimeOffset member_since { get; set; }
+        public string Name { get; set; }
+        public string Surname { get; set; }
+        public DateTimeOffset Member_since { get; set; }
     }
 }

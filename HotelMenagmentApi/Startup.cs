@@ -22,13 +22,33 @@ namespace HotelMenagmentApi
         {
             Configuration = configuration;
         }
-
+        readonly string MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
         public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+            services.AddCors(options =>
+            {
+                options.AddPolicy(name: MyAllowSpecificOrigins,
+                                  builder =>
+                                  {
+                                      builder
+
+                                             .WithOrigins("http://example.com",
+                                                          "http://www.contoso.com",
+                                                          "http://localhost:4200",
+                                                          "https://localhost:44380/",
+                                                          "http://localhost:4200")
+                                             //.SetIsOriginAllowedToAllowWildcardSubdomains();
+                                             .AllowAnyHeader()
+                                             .AllowAnyMethod()
+                                             .AllowCredentials()
+                                             //.WithExposedHeaders("Token-Expired")
+                                             .Build();
+                                  });
+            });
             services.AddDbContext<HotelMenagmentContext>(options =>
             options.UseSqlServer(Configuration.GetConnectionString("HotelMenagmentContext")));
             services.AddSwaggerGen(c =>
@@ -58,7 +78,7 @@ namespace HotelMenagmentApi
             app.UseRouting();
 
             app.UseAuthorization();
-
+            app.UseCors(MyAllowSpecificOrigins);
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();

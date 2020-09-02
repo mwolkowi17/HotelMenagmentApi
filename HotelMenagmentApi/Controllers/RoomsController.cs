@@ -28,6 +28,14 @@ namespace HotelMenagmentApi.Controllers
             return await _context.Rooms.ToListAsync();
         }
 
+        [HttpGet("numberone")]
+        public async Task<ActionResult<IEnumerable<Room>>> GetNumberOne(int num)
+        {
+            var roomNumberOne = _context.Rooms
+                                .Where(n => n.RoomID == num);
+            return await roomNumberOne.ToListAsync();
+
+        }
         // GET: api/Rooms/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Room>> GetRoom(int id)

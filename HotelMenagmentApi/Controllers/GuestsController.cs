@@ -29,6 +29,7 @@ namespace HotelMenagmentApi.Controllers
         }
 
         // GET: api/Guests/5
+        //returns details
         [HttpGet("{id}")]
         public async Task<ActionResult<Guest>> GetGuest(int id)
         {

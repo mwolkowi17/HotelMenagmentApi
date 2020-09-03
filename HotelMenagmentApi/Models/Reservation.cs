@@ -25,12 +25,17 @@ namespace HotelMenagmentApi.Models
 
         public DateTimeOffset Check_out { get; set; }
         public ResStatus Status { get; set; }
-        public string Made_by { get; set; }
+
         //public int GuestID { get; set; }
         public Guest Guest { get; set; }
 
-        public string GuestName { get; set; }
+
         //public int RoomID { get; set; }
         public Room Room { get; set; }
+
+        public int TotalAmount { get; set; }
+
+        public bool BreakfestIncluded { get; set; }
+
     }
 }

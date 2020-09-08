@@ -25,7 +25,13 @@ namespace HotelMenagmentApi.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Reservation>>> GetReserevations()
         {
-            return await _context.Reserevations.ToListAsync();
+            var reservationToDisplay = _context.Reserevations
+                                      .Include(n => n.Guest)
+                                      .Include(n => n.Room)
+                                      .ToListAsync();
+
+
+            return await reservationToDisplay;
         }
 
         // GET: api/Reservations/5

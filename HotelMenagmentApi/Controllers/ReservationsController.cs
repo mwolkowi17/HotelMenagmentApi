@@ -92,7 +92,7 @@ namespace HotelMenagmentApi.Controllers
             return CreatedAtAction("GetReservation", new { id = reservation.ReservationID }, reservation);
         }
 
-        [HttpPost("addreservation")]
+        [HttpGet("addreservation")]
         public async Task <ActionResult<Reservation>> AddReservation(RoomType type, int idguest, DateTime checkin, DateTime checkout, bool breakfestincluded)
         {
             var RoomToRentTypeList = (from Room item in _context.Rooms

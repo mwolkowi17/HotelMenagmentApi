@@ -177,7 +177,14 @@ namespace HotelMenagmentApi.Controllers
         [HttpDelete("{id}")]
         public async Task<ActionResult<Reservation>> DeleteReservation(int id)
         {
-            var reservation = await _context.Reserevations.FindAsync(id);
+            var reservation = await _context.Reserevations
+                              .Where(n => n.ReservationID == id)
+                              .Include(n => n.Guest)
+                              .Include(n => n.Room)
+                              .FirstOrDefaultAsync();
+
+                              
+
             if (reservation == null)
             {
                 return NotFound();

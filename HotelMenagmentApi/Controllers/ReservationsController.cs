@@ -183,7 +183,20 @@ namespace HotelMenagmentApi.Controllers
                 return NotFound();
             }
 
+            var reservationToArchinve = new ReservationHistory()
+            {
+                check_in_History = reservation.Check_in,
+                check_out_History= reservation.Check_out,
+                Guest = reservation.Guest,
+                Room = reservation.Room,
+                TotalAmount_History=reservation.TotalAmount
+
+            };
+            
+            
+                                               
             _context.Reserevations.Remove(reservation);
+            _context.ReservationHistory.Add(reservationToArchinve);
             await _context.SaveChangesAsync();
 
             return reservation;

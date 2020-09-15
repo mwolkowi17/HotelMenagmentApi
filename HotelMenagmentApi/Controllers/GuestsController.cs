@@ -103,6 +103,27 @@ namespace HotelMenagmentApi.Controllers
             return guest;
         }
 
+        [HttpGet("FindGuestNumber")]
+        public async Task<ActionResult<IEnumerable<Guest>>> FindGuestIdB(string guestsurname)
+        {
+
+
+            var searchedGuests = await _context.Guests
+                               .Where(n => n.Surname == guestsurname)
+                               .ToListAsync();
+
+            var reservationsToDisplay = _context.Reserevations
+                                      .Include(c => c.Room)
+                                      .Include(c => c.Guest);
+
+
+
+
+
+            return searchedGuests;
+        }
+
+
         private bool GuestExists(int id)
         {
             return _context.Guests.Any(e => e.GuestID == id);

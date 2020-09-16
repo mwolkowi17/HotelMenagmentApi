@@ -37,7 +37,7 @@ namespace HotelMenagmentApi.Controllers
             return await roomreservedfortoday;
         }
 
-        [HttpGet]
+        [HttpGet("getroomsoccupied")]
         public async Task<ActionResult<IEnumerable<Room>>> GetRoomsOccupied()
         {
             var roomnotoccupiedtoday = _context.Rooms

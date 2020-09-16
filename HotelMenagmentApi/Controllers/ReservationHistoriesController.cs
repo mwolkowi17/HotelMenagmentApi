@@ -25,7 +25,10 @@ namespace HotelMenagmentApi.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<ReservationHistory>>> GetReservationHistory()
         {
-            return await _context.ReservationHistory.ToListAsync();
+            return await _context.ReservationHistory
+                         .Include(n=>n.Guest)
+                         .Include(n=>n.Room)
+                         .ToListAsync();
         }
 
         // GET: api/ReservationHistories/5

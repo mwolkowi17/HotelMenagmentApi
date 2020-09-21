@@ -47,5 +47,83 @@ namespace HotelMenagmentApi.Controllers
 
             return await roomnotoccupiedtoday;
         }
+        
+        [HttpPost("addcheckintoroom")]
+        public async Task<ActionResult<Room>> CheckinRoomAdd(int id, string name, string surname, DateTime departureDate, bool breakfestincluded)
+        {
+            var roomtocheckin = _context.Rooms
+                                .Where(n => n.RoomID == id)
+                                .Include(c => c.Guest)
+                                .ToList();
+
+            roomtocheckin.First().Is_ocuppied = true;
+
+            var newguest = new Guest();
+            newguest.Name = name;
+            newguest.Surname = surname;
+            newguest.Member_since = DateTime.Today;
+
+
+
+
+
+            //if(!_context.Users.Contains(newguest))
+
+            var guestcontain = _context.Guests
+                               .Where(n => n.Name == name)
+                               .Where(m => m.Surname == surname)
+                               .ToList();
+
+
+
+            //ViewBag.CheckinInformation = "Check-in Complete.";
+            //ViewBag.CheckinData = $"Room nr {roomtocheckin.First().Number} has been rented to {name} {surname}";
+            var roomreservedfortoday = _context.Reserevations
+                                       .Where(n => n.Check_in.Date == DateTime.Today.Date)
+                                       .Include(c => c.Guest)
+                                       .Include(c => c.Room)
+                                       .ToList();
+
+            var roomnotoccupiedtoday = _context.Rooms
+                                       .Where(n => n.Is_ocuppied == false)
+                                       .Include(c => c.Guest)
+                                       .ToList();
+
+            var simpleguest = from n in _context.Guests
+                              select n;
+            /*var checkindata = new PensionViewModel
+            {
+                ReservedForToday = roomreservedfortoday,
+                RoomList = roomnotoccupiedtoday,
+                GuestList = simpleguest.ToList()
+
+            };*/
+
+            if (guestcontain.Count() == 0)
+            {
+                _context.Guests.Add(newguest);
+                _context.SaveChanges();
+            }
+
+            var guestToCheckin = _context.Guests
+                                 .Where(n => n.Name == newguest.Name)
+                                 .Where(n => n.Surname == newguest.Surname)
+                                 .First();
+
+            roomtocheckin.First().Guest = guestToCheckin;
+            await _context.SaveChangesAsync();
+
+            Reservation NewReservation = new Reservation();
+            NewReservation.Status = 0;
+            NewReservation.Guest = guestToCheckin;
+            NewReservation.Room = roomtocheckin.First();
+            NewReservation.Check_in = DateTime.Now.Date;
+            NewReservation.Check_out = departureDate;
+            NewReservation.TotalAmount = (departureDate.DayOfYear - DateTime.Now.DayOfYear) * roomtocheckin.First().ReguralPrice;
+            NewReservation.BreakfestIncluded = breakfestincluded;
+            _context.Reserevations.Add(NewReservation);
+            _context.SaveChanges();
+            return roomtocheckin.First();
+        }
     }
 }

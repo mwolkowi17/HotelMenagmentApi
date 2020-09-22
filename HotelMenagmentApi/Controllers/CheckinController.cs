@@ -48,7 +48,7 @@ namespace HotelMenagmentApi.Controllers
             return await roomnotoccupiedtoday;
         }
         
-        [HttpPost("addcheckintoroom")]
+        [HttpGet("addcheckintoroom")]
         public async Task<ActionResult<Room>> CheckinRoomAdd(int id, string name, string surname, DateTime departureDate, bool breakfestincluded)
         {
             var roomtocheckin = _context.Rooms

@@ -125,5 +125,56 @@ namespace HotelMenagmentApi.Controllers
             _context.SaveChanges();
             return roomtocheckin.First();
         }
+
+        [HttpGet("checkinadd")]
+        public async Task<ActionResult<Room>> CheckinAdd(int id)
+        {
+            var roomnumbertocheckin = from n in _context.Reserevations
+                                      where n.ReservationID == id
+                                      select n.Room.RoomID;
+
+            var roomtocheckin = _context.Rooms
+                                .Where(m => m.RoomID == roomnumbertocheckin.First())
+                                .Include(c => c.Guest)
+                                .FirstOrDefault();
+
+            var usertocheckin = from n in _context.Reserevations
+                                where n.ReservationID == id
+                                select n.Guest;
+            //logowanie błędów
+            try
+            {
+                roomtocheckin.Is_ocuppied = true;
+                roomtocheckin.Guest = usertocheckin.First();
+                await _context.SaveChangesAsync();
+            }
+            catch 
+            {
+              
+
+                throw;
+            }
+            //return RedirectToAction(nameof(Index));
+           
+
+            var roomreservedfortoday = _context.Reserevations
+                                       .Where(n => n.Check_in.Date == DateTime.Today.Date)
+                                       .Include(c => c.Guest)
+                                       .Include(c => c.Room)
+                                       .ToList();
+
+            var roomnotoccupiedtoday = _context.Rooms
+                                       .Where(n => n.Is_ocuppied == false)
+                                       .Include(c => c.Guest)
+                                       .ToList();
+
+           /* var checkindata = new PensionViewModel
+            {
+                ReservedForToday = roomreservedfortoday,
+                RoomList = roomnotoccupiedtoday.ToList()
+
+            };*/
+            return roomnotoccupiedtoday.FirstOrDefault();
+        }
     }
 }

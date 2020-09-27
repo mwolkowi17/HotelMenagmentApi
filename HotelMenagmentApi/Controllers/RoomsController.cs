@@ -25,7 +25,9 @@ namespace HotelMenagmentApi.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Room>>> GetRooms()
         {
-            return await _context.Rooms.ToListAsync();
+            return await _context.Rooms
+                         .Include(n=>n.Guest)
+                         .ToListAsync();
         }
 
         
